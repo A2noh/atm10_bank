@@ -1,9 +1,9 @@
 --ATM version 0.0.7--
 --Must be called api.lua--
 
-rednet.open("back")
+rednet.open("modem_0")
 
-server = 0
+server = 3
 vers = "0.0.7"
 
 --functions--
@@ -14,9 +14,11 @@ function clear(col, exit)
     term.clear()
     term.setCursorPos(1, 1)
     term.write("Bank OS ".. vers)
-    term.setCursorPos(1, 19)
+    term.setCursorPos(1, 18)
     term.setTextColor(colors.lightGray)
-    term.write("Made By Mavric, Please Report Bugs")
+    term.write("Made By Mavric, edited by A2noh.")
+    term.setCursorPos(1, 19)
+    term.write("Please Report Bugs to A2noh")
     term.setTextColor(colors.white)
     if (exit) then
         term.setBackgroundColor(colors.red)
