@@ -67,3 +67,24 @@ function transfer(account, account2, amount, ATM, pin)
     end
     return false, "oof"
 end
+
+function create(acc, ATM, pin)
+    local msg = {"cre", ATM, pin}
+    rednet.send(server, msg, "banking")
+    local send, mes, pro = rednet.receive("banking")
+    if mes[1] == "creR" then
+        return mes[2], mes[3]
+    end
+    return false, "oof"
+end
+while true do
+    function log(message)
+        local logFile = fs.open("log.txt", "a")
+        if logFile then
+            logFile.writeLine(message)
+            logFile.close()
+        else
+            print("Failed to open log file.")
+        end
+    end
+end

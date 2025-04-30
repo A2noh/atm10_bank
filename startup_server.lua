@@ -36,6 +36,10 @@ while true do
         local succ, resp = bankAPI.transfer(msg[2], msg[3], msg[4], msg[5], msg[6])
         msgR = {"traR", succ, resp}
         rednet.send(ret, msgR, "banking")
+    elseif msg[1] == "cre" then
+        local succ, resp = bankAPI.transfer(msg[2], msg[3], msg[4])
+        msgR = {"creR", succ, resp}
+        rednet.send(ret, msgR, "banking")
     end
     if msgR ~= nil then
         if msgR[1] ~= nil then

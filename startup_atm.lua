@@ -23,7 +23,8 @@ local buttons1 = {
     {16, 8, 23, "#balance"}, --button X, Y || buttonLength || buttonText--
     {28, 8, 35, "#deposit"},
     {16, 10, 24, "#withdraw"},
-    {28, 10, 36, "#tranfers"}
+    {28, 10, 36, "#tranfers"},
+    {16, 12, 24, "#create account"}
 }
 
 --Vars--
