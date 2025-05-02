@@ -68,7 +68,7 @@ function transfer(account, account2, amount, ATM, pin)
     return false, "oof"
 end
 
-function create(acc, ATM, pin)
+function create(ATM, pin)
     local msg = {"cre", ATM, pin}
     rednet.send(server, msg, "banking")
     local send, mes, pro = rednet.receive("banking")

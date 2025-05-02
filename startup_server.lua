@@ -8,7 +8,7 @@ os.loadAPI("bankAPI.lua")
 term.setCursorPos(1, 1)
 
 shell.openTab("control.lua")
-shell.openTab()
+shell.openTab("shell")
 
 while true do
     local ret, msg, pro = rednet.receive("banking")
