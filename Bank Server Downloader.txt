@@ -1,0 +1,14 @@
+--Made by Mavric on YouTube--
+ 
+--do "pastebin run Zfw7MsST"--
+print("Installing Bank server")
+sleep(1)
+fs.makeDir("/saves")
+shell.run("wget get https://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/startup_server.lua startup.lua")
+shell.run("wget get https://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/bankAPI.lua bankAPI.lua")
+shell.run("wget get https://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/control.lua control.lua")
+sleep(1)
+term.clear()
+term.setCursorPos(1,1)
+printError("Installed bank server, you can do CTRL+R to use the atm.")
+printError("Got to Mavric on YouTube for more information.")
