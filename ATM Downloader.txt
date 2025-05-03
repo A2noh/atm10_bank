@@ -1,15 +1,15 @@
 --Made by Mavric on YouTube--
  
---do "wget run https://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/ATM%20Downloader.txt"--
+--do "wget run http://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/ATM%20Downloader.txt"--
 print("Installing ATM")
 settings.set("shell.allow_disk_startup", false)
 settings.save()
 sleep(1)
 fs.makeDir("/atm")
-shell.run("wget get https://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/startup_atm.lua startup.lua")
-shell.run("wget get https://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/atm/api.lua /atm/api.lua")
-shell.run("wget get https://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/atm/pullapi.lua /atm/pullapi.lua")
-shell.run("wget get https://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/atm/MPNLogo.nfp /atm/MPNLogo.nfp")
+shell.run("wget get http://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/startup_atm.lua startup.lua")
+shell.run("wget get http://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/atm/api.lua /atm/api.lua")
+shell.run("wget get http://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/atm/pullapi.lua /atm/pullapi.lua")
+shell.run("wget get http://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/atm/MPNLogo.nfp /atm/MPNLogo.nfp")
 sleep(1)
 term.clear()
 term.setCursorPos(1,1)
