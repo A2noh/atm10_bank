@@ -13,4 +13,4 @@ term.setCursorPos(1,1)
 printError("Installed bank server, you can do CTRL+R to use the atm.")
 printError("Got to Mavric on YouTube for more information.")
 sleep(1)
-reboot
+os.reboot
