@@ -52,47 +52,30 @@ function deposit()
     end
 end
 
-function withdraw(amount, atmID)
+function withdraw(amount)
     if amount > 576 then
-        return false, "Max withdrawal is 576"
+        return false, "Amount must be at maximum 9 stacks or 576 items"
     end
     if amount > getStored() then
-        return false, "Insufficient bank balance"
+        return false, "Not enough money in storage"
     end
 
-    -- Pull coins into turtle's inventory
-    local turtleName = "turtle_0"
-    local delivered = 0
+    local TURTLE_ID = 3  -- Replace with your turtle’s actual ID
 
-    for _, chestName in pairs(chests) do
-        local chest = peripheral.wrap(chestName)
-        for i = 1, 54 do
-            if delivered >= amount then break end
-            local item = chest.getItemDetail(i)
-            if item and item.name == coin then
-                local toMove = math.min(item.count, amount - delivered)
-                peripheral.call(turtleName, "pullItems", chestName, i, toMove)
-                delivered = delivered + toMove
-            end
-        end
-    end
-
-    if delivered < amount then
-        return false, "Could not gather enough coins"
-    end
-
-    -- Deliver via ender chest
-    if not atmDeliveryMap[atmID] then
-        return false, "Unknown ATM ID"
-    end
-
-    local chestColor = atmDeliveryMap[atmID]
-
-    rednet.send(peripheral.getName(peripheral.wrap(turtleName)), textutils.serialize({
+    local message = {
         command = "deliver",
-        toColor = chestColor,
         count = amount
-    }))
+    }
 
-    return true, "Delivery started"
+    rednet.send(TURTLE_ID, textutils.serialize(message))
+
+    -- Optionally wait for confirmation
+    local _, reply = rednet.receive(3)  -- wait up to 3 seconds
+    rednet.close("back")
+
+    if reply then
+        return true, reply
+    else
+        return true, "Withdraw requested: " .. amount
+    end
 end
