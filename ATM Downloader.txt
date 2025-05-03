@@ -1,6 +1,6 @@
 --Made by Mavric on YouTube--
  
---do "wget run JFE8SEMc"--
+--do "wget run https://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/ATM%20Downloader.txt"--
 print("Installing ATM")
 settings.set("shell.allow_disk_startup", false)
 settings.save()

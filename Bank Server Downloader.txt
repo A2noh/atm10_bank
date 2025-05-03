@@ -1,6 +1,6 @@
 --Made by Mavric on YouTube--
  
---do "pastebin run Zfw7MsST"--
+--do "wget run https://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/Bank%20Server%20Downloader.txt"--
 print("Installing Bank server")
 sleep(1)
 fs.makeDir("/saves")
