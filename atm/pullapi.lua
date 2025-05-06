@@ -48,33 +48,29 @@ end
 
 function withdraw(amount)
     if amount > 576 then
-        return false, "amount must be at maximum 9 stacks or 576 items"
+        return false, "Amount must be at maximum 9 stacks or 576 items"
     end
     if amount > getStored() then
-        return false, "not enough money in storage"
+        return false, "Not enough money in storage"
     end
-    
-    local count = 0
-    for k, v in pairs(chests) do
-        cs = peripheral.wrap(v)
-        for i = 1, 54 do
-            tab = cs.getItemDetail(i)
-            if tab ~= nil then
-                if tab.name == coin then
-                    if (count + tab.count) > amount then
-                        d.pullItems(v, i, (amount - count))
-                        return true
-                    else
-                        d.pullItems(v, i, tab.count)
-                        count = count + tab.count
-                    end
-                    if count == amount then
-                        return true
-                    end
-                else
-                    j.pullItems(chests, i, 64)
-                end
-            end
-        end
+
+    local TURTLE_ID = 3  -- Replace with your turtle’s actual ID
+
+    local message = {
+        command = "deliver",
+        count = amount
+    }
+
+    rednet.open("modem_0")
+    rednet.send(TURTLE_ID, textutils.serialize(message))
+
+    -- Optionally wait for confirmation
+    local _, reply = rednet.receive(3)  -- wait up to 3 seconds
+    rednet.close("modem_0")
+
+    if reply then
+        return true, reply
+    else
+        return true, "Withdraw requested: " .. amount
     end
 end
