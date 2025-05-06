@@ -1,3 +1,5 @@
+--do 'wget https://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/turtle.lua'
+
 rednet.open("right")
 print("Turtle ready for delivery.")
 
