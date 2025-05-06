@@ -356,6 +356,7 @@ function prosClick(butt)
                     pinMode = true
                     term.write("Pin: ")
                     pad = ""
+                end
         elseif (accMode) then
             local isAcc, acc2 = pinClick(butt, "Acc: ")
                 if (isAcc) then
