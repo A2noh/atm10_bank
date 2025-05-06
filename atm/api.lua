@@ -51,31 +51,37 @@ end
 function withdraw(account, amount, ATM, pin)
     local msg = {"wit", account, amount, ATM, pin}
     rednet.send(server, msg, "banking")
-    local send, mes, pro = rednet.receive("banking")
-    if mes[1] == "witR" then
-        -- Bank server confirmed withdrawal is valid
-        local success, response = true, tostring(mes[2])
+    
+    local send, mes, pro = rednet.receive("banking", 3)  -- 3 second timeout
 
-        -- 🐢 Send request to turtle for physical delivery
-        local TURTLE_ID = 4  -- ✅ change this to your actual turtle ID
-        local delivery = {
-            command = "deliver",
-            count = amount
-        }
-
-        print("Sending delivery request to Turtle ID " .. TURTLE_ID)
-        rednet.send(TURTLE_ID, delivery)
-
-        local _, turtleReply = rednet.receive(3)  -- wait up to 3 seconds
-        if turtleReply then
-            return success, response .. " | " .. turtleReply
-        else
-            return success, response .. " | Delivery request sent, no turtle reply"
-        end
+    if not mes then
+        return false, "No response from server"
     end
 
-    return false, "oof"
-end
+    if mes[1] ~= "witR" or mes[2] ~= true then
+        return false, "Withdrawal denied by server: " .. tostring(mes[3] or "unknown reason")
+    end
+
+    -- Server approved the withdrawal
+    local response = tostring(mes[3] or "Approved")
+    local TURTLE_ID = 4  -- Update with your turtle ID
+
+    local delivery = {
+        command = "deliver",
+        count = amount
+    }
+
+
+    rednet.send(TURTLE_ID, delivery)
+
+    local _, turtleReply = rednet.receive(3)  -- wait up to 3 seconds
+    if turtleReply then
+        return success, response .. " | " .. turtleReply
+    else
+        return false, "oof"
+    end
+end   
+    
 
 function transfer(account, account2, amount, ATM, pin)
     local msg = {"tra", account, account2, amount, ATM, pin}
