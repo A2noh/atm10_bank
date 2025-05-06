@@ -1,4 +1,4 @@
---do 'wget run '
+--do 'wget run https://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/Turtle%20Downloader.txt'
 
 shell.run("wget https://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/startup_turtle.lua startup.lua")
 shell.run("wget https://raw.githubusercontent.com/A2noh/atm10_bank/refs/heads/main/turtle.lua")
