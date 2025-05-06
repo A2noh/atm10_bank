@@ -54,7 +54,7 @@ function withdraw(account, amount, ATM, pin)
     local send, mes, pro = rednet.receive("banking")
     if mes[1] == "witR" then
         -- Bank server confirmed withdrawal is valid
-        local success, response = true, mes[2]
+        local success, response = true, tostring(mes[2])
 
         -- 🐢 Send request to turtle for physical delivery
         local TURTLE_ID = 4  -- ✅ change this to your actual turtle ID

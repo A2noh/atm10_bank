@@ -9,7 +9,7 @@ while true do
 
     local data = msg
     if data and data.command == "deliver" then
-        local count = data.count or 0
+        local count = tonumber(data.count) or 0
         print("Starting delivery of exactly " .. count .. " diamonds")
 
         -- Step 1: Pull only diamonds until we have exactly the count
