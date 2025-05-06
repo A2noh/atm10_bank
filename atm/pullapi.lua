@@ -8,12 +8,6 @@ local coin = "minecraft:diamond"
 local d = peripheral.wrap(dropper)
 local j = peripheral.wrap(junk)
 
--- Map of ATM IDs to color codes or delivery channels
-local atmDeliveryMap = {
-    [1] = "white_white_white", -- Example: ATM ID 1
-    [2] = "red_white_blue",
-    -- Add more as needed
-}
 
 function getStored()
     local count = 0

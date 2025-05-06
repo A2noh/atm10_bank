@@ -5,19 +5,48 @@ while true do
     local senderID, msg = rednet.receive()
     local data = msg
     if data and data.command == "deliver" then
-        local color = data.toColor
         local count = data.count or 0
+        print("Delivering " .. count .. " diamonds")
 
-        -- Optional: open Ender Chest with matching color (assumed already placed)
-        print("Delivering " .. count .. " coins to " .. color)
+        local collected = 0
+        while collected < count do
+            local toPull = math.min(64, count - collected)
+            if turtle.suck(toPull) then
+                for i = 1, 16 do
+                    local item = turtle.getItemDetail(i)
+                    if item and item.name == "minecraft:diamond" then
+                        collected = collected + item.count
+                        if collected >= count then
+                            break
+                        end
+                    else
+                        turtle.select(i)
+                        turtle.drop() -- Drop non-diamonds back
+                    end
+                end
+            else
+                print("No items left to pull.")
+                break
+            end
+        end
 
+        -- Turn around to face Ender Chest
+        turtle.turnLeft()
+        turtle.turnLeft()
+
+        -- Drop only diamonds
         for i = 1, 16 do
             local item = turtle.getItemDetail(i)
             if item and item.name == "minecraft:diamond" then
                 turtle.select(i)
-                turtle.drop() -- Assumes turtle is facing into Ender Chest
+                turtle.drop()
             end
         end
-        rednet.send(senderID, "Delivered to ATM: " .. color)
+
+        -- Turn back to original position
+        turtle.turnLeft()
+        turtle.turnLeft()
+
+        rednet.send(senderID, "Delivered " .. math.min(collected, count) .. " diamonds.")
     end
 end

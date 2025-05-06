@@ -209,8 +209,8 @@ function prosClick(butt)
             drawScreen(3)
         elseif butt == 3 then
             drawScreen(4)
-        elseif butt == 4 then
-            --drawScreen(5)
+        elseif butt == 4 or 5 then
+            drawScreen(5)
         end
     elseif screen == 2 then
         if butt == 100 then
@@ -335,6 +335,7 @@ function prosClick(butt)
         if butt == 100 then
             trasMode= false
             pinMode = false
+            accMode = false
             drawScreen(1)
         end
         if (trasMode) then
@@ -355,8 +356,21 @@ function prosClick(butt)
                     pinMode = true
                     term.write("Pin: ")
                     pad = ""
-                end
+        elseif (accMode) then
+            local isAcc, acc2 = pinClick(butt, "Acc: ")
+                if (isAcc) then
+                accMode = false
+                api.clear(backColor, true)
+                term.setCursorPos(17, 5)
+                term.write("Enter the account you want to transfer to")
+                term.setCursorPos(21, 8)
+                term.setBackgroundColor(backColor)
+                term.setTextColor(colors.lightGray)
+                pinMode = true
+                term.write("Acc: ")
+                pad = ""
             end
+        end
         elseif (pinMode) then
             local isTPin, TPin = pinClick(butt, "Pin: ")
             if (isTPin) then
@@ -366,7 +380,7 @@ function prosClick(butt)
                 term.write("Transfering $")
                 term.write(tras)
                 term.write(" from you account..")
-                local isTras, tras2 = api.transfer(acc, 1, tras, atm, TPin)
+                local isTras, tras2 = api.transfer(acc, acc2, tras, atm, TPin)
                 api.clear(backColor, true)
                 term.setCursorPos(17, 9)
                 if (isTras) then
