@@ -61,11 +61,12 @@ function withdraw(amount)
         count = amount
     }
 
+    rednet.open("modem_0")
     rednet.send(TURTLE_ID, textutils.serialize(message))
 
     -- Optionally wait for confirmation
     local _, reply = rednet.receive(3)  -- wait up to 3 seconds
-    rednet.close("back")
+    rednet.close("modem_0")
 
     if reply then
         return true, reply
